@@ -1,0 +1,696 @@
+.lobby-window{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-image: url(/public/assets/background.png);
+
+
+   overflow-x: hidden;
+}
+.skribble-text-container{
+    flex: 1;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.musicDetails-container{
+    display: flex;
+    flex-direction: column;
+}
+.music-title{
+    font-size: 12px;
+    text-align: start;
+    margin-top:0.5rem;
+    margin-left: 0.35rem;
+    margin-bottom: 0.5rem;
+}
+.singer-imageAndName-container{
+    margin-left:0.35rem;
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+
+}
+.singerImage{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    
+}
+.singerImage-container{
+    height:25px;
+    width: 25px;
+    margin-right:0.35rem
+}
+
+.range{
+    width: 90%;
+    margin-left: 0.35rem;
+    margin-top: 0.5rem;
+    cursor: pointer;
+}
+.timeRange-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 0;
+}
+.actions-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-evenly;
+ 
+}
+.for-rounds-container{
+    width: 700px;
+    min-height: 500px;
+    background-color: #2c8de7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+.soloButton-container{
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    background-color: whitesmoke;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+}
+.repeat-button{
+    cursor: pointer;
+    font-size: 20px;
+
+}
+.play-button{
+    cursor: pointer;
+    font-size: 25px;
+
+}
+.search-button{
+    cursor: pointer;
+    font-size: 20px;
+}
+
+
+.music-container{
+    display: flex;
+    height: 150px;
+    width: 100%;
+   /* position: relative; */
+    /* margin-right: 0.5rem; */
+    border-radius: 5px;
+    /* margin-top: 0.5rem; */
+    /* border-radius: 5px; */
+}
+.search-container{
+    display: flex;
+    height: 150px;
+    width: 100%;
+    border-radius: 5px;
+    border-radius: 5px;
+    background-color: whitesmoke;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.thumbnail-container{
+    width: 35%;
+    position: absolute;
+    height: 100%;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    object-fit: contain;
+
+}
+.thumbNailImage{
+  border-radius: 5px 5px 5px 5px;
+    width: 92%;
+    height: 92%;
+ 
+}
+.musicDetails-container{
+    position: fixed;
+    flex: 1.5;
+    margin-left: 10rem;
+    height: 100%;
+    border-radius: 0px 5px 5px 0px;
+  
+}
+
+.main-container{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.inviteFrnd-container{
+    height: 100%;
+    width: 550px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.invite-text{
+    font-size: 15px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    background-color:  #2c8de7;
+    text-shadow: 2px 2px 0 #0000002b;
+    cursor: pointer;
+    color: white;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+}
+.link-container{
+    margin:0.35rem;
+    flex: 0.15;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.copyBtn{
+    height: 85%;
+    font-size: 1em;
+    width: 75px;
+    border-radius: 5px;
+    border: 1px solid gray;
+    cursor: pointer;
+    margin-left: 0.25rem;
+    background-color:#53e237;
+    color: white;
+    text-shadow: 2px 2px 0 #0000002b;
+}
+.displayText{
+    height: fit-content;
+    width: fit-content;
+    background-color: whitesmoke;
+    padding: 0.25rem;
+    border-radius: 5px;
+    color: #2c8de7;
+    text-shadow: 2px 2px 0 #0000002b;
+}
+.emptyText{
+    height:30px;
+    width:50px;
+    margin-top: 1.75rem;
+}
+.copyBtn:hover{
+    text-shadow: 2px 2px 0 #0000002b;
+    background-color: whitesmoke;
+    color: #53e237;
+}
+
+
+.skribbleText{
+    font-size: 50px;
+    margin-left: 0.25rem;
+    margin-top: 0.85rem;
+    height: 95px;
+    width: 440px; 
+}
+.mic-container{
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-start;
+    align-items: center;
+}
+.mic{
+    margin-top: 2rem;
+    cursor: pointer;
+    color: whitesmoke;
+    font-size: 40px;
+}
+.searchInput{
+    height: 30px;
+    width: 250px;
+    border-radius: 5px;
+    border: 1px solid grey;
+    caret-color: #2c8de7;
+    font-size: 15px;
+}
+.searchInput:hover{
+    border:2px solid #2c8de7
+}
+.searchBtn{
+    cursor: pointer;
+    background-color: #2c8de7;
+    color: white;
+    margin-left: 1rem;
+    text-shadow: 2px 2px 0 #0000002b;
+    border-radius: 5px;
+    height: 35px;
+    width: 50px;
+    border: none;
+    font-size: 16px;
+}
+.searchBtn:hover{
+    color: #2c8de7;
+    background-color: white;
+    text-shadow: 2px 2px 0 #0000002b;
+    border: 1px solid grey;
+}
+
+
+.imageLogo{
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+}
+
+.firstMain-container{
+    /* flex:0.15; */
+    height: 70px;
+    background-color: whitesmoke;
+    margin: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+}
+.rounds-container{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* text-align: center; */
+}
+.roundText{
+    font-size: 20px;
+    
+}
+.imageClock{
+    height: 55px;
+}
+
+.spaces{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.space{
+    margin-left: 0.15rem;
+    font-size: 20px;
+}
+
+.clockWithTime{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.settingsImage{
+    cursor: pointer;
+    height: 40px;
+}
+.word-container{
+    margin-right: 5rem;
+}
+.settings-container{
+  
+    margin-right: 1rem;
+}
+.secondMain-container{
+    /* flex: auto; */
+    display: flex;
+}
+.players-container{
+
+    min-width: 250px;
+    max-height: 500px;
+    
+    overflow-y: scroll;
+    overflow: auto;
+
+    /* flex: 0.75; */
+    margin-left: 0.5rem;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.words-container{
+    width: 700px;
+    min-height: 500px;
+    background-color: #2c8de7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+.word{
+    background-color: grey;
+    height: fit-content;
+    width: fit-content;
+    margin:1rem;
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.word:hover{
+    background-color: whitesmoke;
+    color: grey;
+}
+.playerInfo-whiteSmokeContainer{
+    min-width: 55px;
+    width: 99%;
+    margin-bottom: 0.5rem;
+    border-radius: 5px;
+    background-color: whitesmoke;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+}
+.playerInfo-greenContainer{
+    min-height: 55px;
+    width: 99%;
+    margin-bottom: 0.5rem;
+    border-radius: 5px;
+    background-color: #53e237;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.playerInfo-containerWithTurn{
+    height: 55px;
+    width: 99%;
+    margin-bottom: 0.5rem;
+    border-radius: 5px;
+    background-color: grey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.userImage-container{
+    height: 40px;
+    /* width:40px; */
+    border-radius: 50%;
+    flex:0.5
+}
+.userImage{
+    height: 100%;
+    width: 35px;
+    /* width: 100%; */
+    border-radius: 50%;
+}
+.actions-conatiner{
+    /* flex: 2.5; */
+    min-width: 700px;
+    min-height: 500px;
+    background-color: rgba(3,8,29,0.8);
+    margin-left: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+  
+}
+.all-actions-container{
+    /* flex: 3; */
+    display: flex;
+}
+.icons-container{
+    flex: 0.25;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.icon{
+    margin: 0.3rem;
+}
+.iconName{
+    margin: 0.65rem;
+    color: white;
+    font-size: 20px;
+}
+.input{
+    margin-top: 0.80rem;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid grey;
+    margin-right: 0.5rem;
+}
+.muscic-controls-container{
+    margin-top: 0.80rem;
+    height: 30px;
+    border-radius: 5px;
+
+    margin-right: 0.5rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.checkerBox-forHost{
+    height: 15px;
+    width: 15px;
+    border-radius: 2px;
+    cursor: pointer;
+    background-color: white;
+    margin-right: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+.smallBox-forHost{
+    background-color: #2c8de7;
+    height: 60%;
+    width: 60%;
+    cursor: pointer;
+    border-radius:2px
+}
+
+.smallBox-forPlayer{
+    background-color:blue;
+    height: 60%;
+    width: 60%;
+    cursor: pointer;
+    border-radius:2px
+}
+
+.checkerBox-forPlayer{
+    height: 15px;
+    width: 15px;
+    border-radius: 2px;
+    cursor: pointer;
+    background-color: grey;
+    margin-right: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+.checkerContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.input:hover{
+    border: 2px solid blue;
+}
+.actionNames-container{
+    flex: 1.5;
+    display: flex;
+    flex-direction: column;
+}
+.actionInputs-container{
+    flex: 1.5;
+    display: flex;
+    flex-direction: column;
+}
+
+.customText-container{
+    display: flex;
+    justify-content: space-between;
+    
+}
+.customWords-container{
+    flex: 1.5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin:0.5rem;
+    border-radius:5px
+}
+.checkBtn{
+    height: 20px;
+    margin-left: 0.25rem;
+    width: 20px;
+    cursor: pointer;
+}
+.checkBtn:hover{
+    border: 1px solid #2c8de7;
+}
+.customWordsInput{
+    height: 100px;
+    width: 100%;
+    font-size: 15px;
+    border-radius:5px;
+    border:1px solid grey
+}
+.custom-text{
+    margin-left: 1rem;
+    margin-right: 1rem;
+    color: white;
+    font-size: 20px;
+}
+.chat-container{
+    /* flex: 1.05; */
+    min-width: 300px;
+    max-height: 500px;
+
+    margin-left: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 5px;
+    
+}
+.message-container{
+    flex: 3.45;
+    overflow-y: scroll;
+    overflow: auto;
+    border-radius: 5px;
+}
+
+.chat-input{
+    max-width: 100%;
+}
+
+.form-input{
+    height: 50px;
+    width: 92%;
+    margin:0.5rem;
+    border-radius: 5px;
+    border: 1px solid gray;
+    font-size: 15px;
+}
+.form-input:hover{
+    border: 2px solid blue;
+}
+.startBtn-container{
+    height: 50px;
+    width: 178px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0.9rem;
+    
+}
+.startBtn{
+    height: 50px;
+    width: 100px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #2c8de7;
+    color: white;
+    cursor: pointer;
+    text-shadow: 2px 2px 0 #0000002b;
+}
+.startBtn:hover{
+    background-color: whitesmoke;
+    color: #2c8de7;
+}
+.leaveBtn{
+    height: 50px;
+    width: 100px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #F55050;
+    color: white;
+    cursor: pointer;
+    text-shadow: 2px 2px 0 #0000002b;
+}
+.leaveBtn:hover{
+    background-color: whitesmoke;
+    color: #F55050;
+}
+
+.msgContainer{
+    display: flex;
+    align-items: center;
+    padding-left: 0.25rem;
+    height: 30px;
+}
+/* .server{
+    font-size: 14px;
+    font-weight: bold;
+    color: #2c8de7;
+    margin-left: 0.25rem;
+    background-color: black;
+} */
+.playerName{
+    font-size: 15px;
+    color: black;
+
+}
+
+.message{
+    font-size: 14px;
+    color: grey;
+    padding-left: 0.25rem;
+}
+.message-server{
+    font-size: 14px;
+    color: grey;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center ;
+}
+
+.userAvatar-container{
+    height: 100px;
+    width: 100px;
+    border: 50%;
+}
+.userAvatar-image{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+
+
+
+/* For invalid room. */
+.container{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.text{
+    text-align: center;
+    color: whitesmoke;
+    font-size: 40px;
+}
+.shoeOn{
+    font-size: 25px;
+    cursor: pointer;
+    /* margin-left: 1rem; */
+    color: tomato;
+    flex: 0.5;
+}
+.shoeOff{
+    font-size: 25px;
+    cursor: pointer;
+    /* margin-left: 1rem; */
+    color:#53e237;
+    flex: 0.5;
+}

@@ -1,0 +1,68 @@
+.canvas-container{
+    height: 93%;
+    width:100%;
+    margin:0;
+    border-radius:  5px 5px 0 0;
+    background-color: white;
+  
+}
+.canvas-actionContainer{
+    background-color: white;
+    border-radius: 0 0 5px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 7%;
+
+}
+
+.ogColors{
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 0.10rem;
+}
+.clearBtn{
+    margin-left: 1rem;
+    cursor: pointer;
+    font-size: 22px;
+    cursor: pointer;
+}
+.fontsContainer{
+    display: flex;
+    margin-left: 1rem;
+}
+.font-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+    margin-left: 0.25rem;
+    border: 1px solid black;
+    border-radius: 50%;
+}
+.selectedFont-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+    margin-left: 0.25rem;
+    border: 1px solid white;
+    border-radius: 50%;
+    background-color: black;
+    color: white;
+}
+
+.pictureContainer{
+    height:100%;
+    width: 100%;
+    background-color: whitesmoke;
+    border-radius:  5px ;
+}

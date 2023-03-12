@@ -1,0 +1,71 @@
+.gameOver-window{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.gameOver-container{
+    height: 400px;
+    width: 450px;
+    background-color: #6e6e80;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;flex-direction: column;
+}
+.gameOverText-container{
+    flex: 1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.scoreCard-container{
+    flex: 2;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.individualScore-container{
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+}
+.rank{
+    flex: 1;
+    text-align: center;
+    color: white;
+}
+.name{
+    flex: 1;
+    text-align: center;
+    color: white;
+
+}
+.score{
+    flex: 1;
+    text-align: center;
+    color: white;
+}
+
+.homeText-container{
+    flex: 1;
+
+}
+.home{
+    height: fit-content;
+    width: fit-content;
+    padding: 10px;
+    background-color: #1C82AD;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    text-shadow: 2px 2px 0 #0000002b;
+}
+.home:hover{
+    background-color: whitesmoke;
+    color: #1C82AD;
+}

@@ -1,0 +1,347 @@
+.avatar-window{
+    width: 100%;
+    min-height: 100vh;
+    background-image: url(/public/assets/background.png);
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    flex-direction:column;
+    overflow:hidden;
+}
+.textHeader{
+    margin-top: 2rem;
+    font-size: 50px;
+    cursor: pointer;
+}
+.menu-container{
+    height:376px;
+    width:850px;
+    background-color: rgba(12, 44, 150, 0.75);
+    border-radius: 1rem;
+  
+}
+.input-random-container{
+    width: 100%;
+    display: flex;
+}
+.randomIcon-container{
+    flex: .35;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.random-icon{
+    height: 45px;
+    width: 45px;
+    cursor: pointer;
+}
+.input-container{
+    height: 65px;
+    flex: 3.75;
+    /* width: 100%; */
+    display: flex;
+    justify-content:center;
+    align-items:center
+}
+.userName-input{
+    height: 60%;
+    width: 60%;
+    border-radius: 5px;
+    font-size: 15px;
+    border:1px solid grey
+}
+
+.avatars-conatiner{
+    height: 175px;
+    width:98%;
+    margin-left: 0.5rem;
+   background-color: rgba(0,0,0,.1);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 5px;
+}
+.join-conatiner{
+    height: 65px;
+    width: 100%;
+ 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.createRoom-conatiner{
+    height: 70px;
+    width: 100%;
+  
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.join-input{
+    height: 60%;
+    border-radius: 5px ;
+    font-size: 15px;
+    border:1px solid grey;
+    width:300px
+}
+
+.joinBtn{
+    height:42px;
+    width: 60px;
+    margin-left: 0.25rem;
+    border-radius: 5px ;
+    font-size: 1.25em;
+    text-shadow: 2px 2px 0 #0000002b;
+    border:1px solid grey;
+    cursor: pointer;
+    background-color: #53e237;
+    color: white;
+}
+.joinBtn:hover{
+    border: 2px solid white;
+}
+.createBtn{
+    height: 60%;
+    width: 60%;
+    font-size: 1.5em;
+    border: 1px solid gray;
+    border-radius: 5px;
+    background-color:  #2c8de7;
+    text-shadow: 2px 2px 0 #0000002b;
+    cursor: pointer;
+    color: white;
+}
+.createBtn:hover{
+    border: 2px solid white;
+}
+.avatarBox{
+    height: 85%;
+    width: 100px;
+    border: 1px solid black;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.Upload-avatarBox{
+    height: 85%;
+    width: 100px;
+    border: 1px solid black;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.selected-avatarBox{
+    height: 85%;
+    width: 100px;
+    border: 1px solid white;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.AvatarImage{
+    margin-top: 0.5rem;
+    height: 75px;
+    width: 75px;
+    border-radius: 50%;
+    background-color: whitesmoke;
+    cursor: pointer;
+    text-align: center;
+    flex:1;
+}
+.camera-icon{
+    cursor: pointer;
+    font-size: 25px ;
+}
+.uploadImage-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.5rem;
+    height: 75px;
+    width: 75px;
+    border-radius: 50%;
+    background-color: whitesmoke;
+
+    text-align: center;
+}
+.file-input{
+    display: none;
+}
+.image{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+.userName-container{
+    flex: 1;
+}
+.userName{
+    color: white;
+    text-align: center;
+}
+
+/* About section: */
+
+.Game-container{
+    margin-top: 2rem;
+    height:480px;
+    width:100%;
+    background-color: rgba(12, 44, 150, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 20px;
+}
+.child-container{
+    height: 400px;
+    width: 320px;
+    background-color:#124da5;
+    border-radius: 10px;
+    margin-left: 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    /* transform: rotate(-2deg); */
+}
+
+.child-first-container{
+    flex:0.5;
+    display: flex;
+}
+.questionMarkLogo-container{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
+}
+.TextAbout-container{
+    flex: 3;
+    display: flex;
+    justify-content:flex-start;
+    margin-top: 0.5rem;
+}
+.aboutText{
+    color: white;
+    font-size: 1.25em;
+    font-weight:bold;
+    margin-left: 3rem;
+}
+.child-second-container{
+    flex: 3;
+    color: white;
+    text-align:left;
+    padding-left: 10px;
+    font-size: 15px;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    flex-direction: column;
+}
+.mainImage-container{
+    height:160px;
+    width: 160px;
+    border-radius: 50%;
+    border: 1px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+.OwnerImage-container{
+    height:150px;
+    width: 150px;
+    border-radius: 50%;
+    border: 1px solid white;
+}
+.ownerImage{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+
+.readMoreText{
+    margin-top: 0.5rem;
+    margin-right: 13.95rem;
+    font-size: 15.5px;
+    cursor: pointer;
+    color:#53e237;
+}
+
+.child-1{
+    flex:0.5;
+    display: flex;
+}
+.howLogo-container{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.pencil-logo{
+    height: 30px;
+}
+.howToPlayText-container{
+    flex: 3;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.howToPlay-text{
+    color: white;
+    font-size: 1.25em;
+    font-weight:bold;
+    margin-left: 1.5rem;
+}
+.child-2{
+    flex: 3.5;
+    display: flex;
+    flex-direction: column;
+  
+}
+.steps{
+    flex: 3.5;
+}
+.stepImage-container{
+    flex: 3;
+    width: 100%;
+}
+.step-textContainer{
+    flex: 1;
+    color: white;
+    font-size: 15px;
+}
+.musicGuides{
+    margin-top: 2rem;
+    color: white;
+    font-size: 15px;
+    text-align: left;
+    padding:10px
+}
+.dots{
+    flex: .5;
+    display: flex;
+    justify-content: center;
+}
+.dot{
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    background-color: grey;
+    margin: 6px;
+    cursor: pointer;
+}
+.selectedDot{
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background-color: white;
+    margin: 4px;
+    cursor: pointer;
+}
+.dot:hover{
+    background-color: white;
+}
