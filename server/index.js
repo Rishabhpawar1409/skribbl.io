@@ -2,6 +2,7 @@ import { Server } from "socket.io";
 import { createServer } from "http";
 import youtubedl from "youtube-dl-exec";
 import words from "./data.js";
+import "dotenv/config";
 
 const httpServer = createServer();
 const io = new Server(httpServer, {
@@ -14,7 +15,8 @@ const rooms = {};
 const songs = {};
 const songNameArray = [];
 const YOUTUBE_SONGS_ITEMS_API = "https://www.googleapis.com/youtube/v3/search";
-const YOUTUBE_API_KEY = "AIzaSyAIBa0gEGNTKTRaY6HWHVZaAwv95Kyrl6M";
+
+const YOUTUBE_API_KEY = process.env.API_KEY;
 
 io.on("connection", (socket) => {
   socket.on("give me rooms", () => {
