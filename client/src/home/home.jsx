@@ -50,6 +50,7 @@ const Home = ({ uuid, socket }) => {
   const [rooms, setRooms] = useState(null);
   const [selectedStep, setSelectedStep] = useState(howToPlay[0]);
   const [renderMusicGuide, setRenderMusicGuide] = useState(false);
+  const [isUploaded, setIsUploaded] = useState(false);
 
   useEffect(() => {
     socket.emit("give me rooms");
@@ -69,6 +70,7 @@ const Home = ({ uuid, socket }) => {
   // function for selecting the avatar
   const handleSelect = (obj) => {
     setUserData(obj);
+    setIsUploaded(false);
   };
 
   // function to join the room
@@ -81,7 +83,16 @@ const Home = ({ uuid, socket }) => {
 
   const fileHandler = (e) => {
     const [file] = e.target.files;
-    setUserData(URL.createObjectURL(file));
+    if (file) {
+      const pattern = /^image\/(png|jpeg|jpg|gif)$/;
+      if (pattern.test(file.type)) {
+        const obj = { id: 7, avatar: URL.createObjectURL(file) };
+        setUserData(obj);
+        setIsUploaded(true);
+      } else {
+        console.log("invalid image");
+      }
+    }
   };
 
   // function to create the room,it will navigate the user specific room, it will also emit the socket to create the room in rooms object
@@ -211,21 +222,37 @@ const Home = ({ uuid, socket }) => {
               </div>
             );
           })}
-          <div className="Upload-avatarBox">
-            <div className="uploadImage-container">
-              <input
-                type="file"
-                id="file-input"
-                className="file-input"
-                onChange={(e) => {
-                  fileHandler(e);
-                }}
-              />
-              <label htmlFor="file-input">
-                <AiFillCamera className="camera-icon" />
-              </label>
+          {isUploaded ? (
+            <div className="selected-avatarBox">
+              <div className="AvatarImage">
+                <img
+                  className="image"
+                  src={userData.avatar}
+                  loading="lazy"
+                  alt="Uploaded Avatar"
+                />
+              </div>
+              <div className="userName-container">
+                <p className="userName">{userName}</p>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="Upload-avatarBox">
+              <div className="uploadImage-container">
+                <input
+                  type="file"
+                  id="file-input"
+                  className="file-input"
+                  onChange={(e) => {
+                    fileHandler(e);
+                  }}
+                />
+                <label htmlFor="file-input">
+                  <AiFillCamera className="camera-icon" />
+                </label>
+              </div>
+            </div>
+          )}
         </div>
         <div>
           <form
