@@ -226,12 +226,26 @@ const Lobby = ({ socket }) => {
 
       setMessages(filteredMessages);
     });
-    socket.on("limit exceeded", () => {
+    socket.on("limit exceeded", ({ roomCode, rooms }) => {
+      const localPlayers = rooms[roomCode].players;
+
+      const filteredMessages = [];
+      localPlayers.map((player) => {
+        if (player.id === socket.id) {
+          rooms[roomCode].messages.map((msg) => {
+            if (msg.msgTimestamp >= player.joinedTimestamp) {
+              return filteredMessages.push(msg);
+            }
+          });
+        }
+      });
+
+      setMessages(filteredMessages);
       console.log("Wait for some time ,limit exceeded!");
     });
 
     socket.on("user is joined", ({ rooms, roomId }) => {
-      // console.log("rooms,", rooms);
+      console.log("rooms,", rooms);
 
       const localPlayers = rooms[roomId].players;
 

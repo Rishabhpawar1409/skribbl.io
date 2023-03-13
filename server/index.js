@@ -706,7 +706,15 @@ io.on("connection", (socket) => {
       } catch (error) {
         console.log("Error occur:", error);
         if (res.status === 403 && res.statusText === "quotaExceeded") {
-          io.to(roomCode).emit("limit exceeded");
+          const msg = {
+            text: "limit reached!, play after some time",
+            server: true,
+            color: "#2E4F4F",
+            serverSpecial: false,
+            msgTimestamp: Date.now(),
+          };
+          rooms[roomCode].messages && rooms[roomCode].messages.push(msg);
+          io.to(roomCode).emit("limit exceeded", { roomCode, rooms });
         }
       }
     };
