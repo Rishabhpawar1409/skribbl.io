@@ -245,8 +245,6 @@ const Lobby = ({ socket }) => {
     });
 
     socket.on("user is joined", ({ rooms, roomId }) => {
-      console.log("rooms,", rooms);
-
       const localPlayers = rooms[roomId].players;
 
       const filteredMessages = [];
@@ -1593,6 +1591,9 @@ const Lobby = ({ socket }) => {
                   >
                     <input
                       className="form-input"
+                      disabled={
+                        whosTurn && whosTurn.id === mySelf.id ? true : false
+                      }
                       value={input}
                       onChange={(e) => {
                         setInput(e.target.value);
