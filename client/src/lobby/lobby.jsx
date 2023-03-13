@@ -1639,6 +1639,7 @@ const Lobby = ({ socket }) => {
                 ) : (
                   <button
                     className="startBtn"
+                    disabled={players && players.length === 1}
                     onClick={() => {
                       handleGameStart();
                     }}

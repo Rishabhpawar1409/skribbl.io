@@ -135,6 +135,7 @@ const JoinRoom = ({ uuid, socket }) => {
   };
 
   const handleRandom = () => {
+    setIsUploaded(false);
     const random = data[Math.floor(Math.random() * data.length)];
     setUserData(random);
   };
