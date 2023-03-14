@@ -260,6 +260,19 @@ io.on("connection", (socket) => {
     socket.to(roomCode).emit("canvas picture", dataURL);
   });
 
+  socket.on("start game condition", (roomCode) => {
+    const msg = {
+      text: "Room must have at least two players to start the game!",
+      server: true,
+      color: "brwon",
+      serverSpecial: false,
+      msgTimestamp: Date.now(),
+    };
+    rooms[roomCode].messages && rooms[roomCode].messages.push(msg);
+
+    io.to(roomCode).emit("game condition", { rooms, roomCode });
+  });
+
   socket.on("start game", ({ roomCode, currRound, hostId }) => {
     let player;
     rooms[roomCode].players.map((each) => {

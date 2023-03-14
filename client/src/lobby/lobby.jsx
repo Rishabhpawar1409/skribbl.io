@@ -309,6 +309,23 @@ const Lobby = ({ socket }) => {
       setControlsForAll(rooms[roomId].musicControlsForAll);
     });
 
+    socket.on("game condition", ({ rooms, roomCode }) => {
+      const localPlayers = rooms[roomCode].players;
+
+      const filteredMessages = [];
+      localPlayers.map((player) => {
+        if (player.id === socket.id) {
+          rooms[roomCode].messages.map((msg) => {
+            if (msg.msgTimestamp >= player.joinedTimestamp) {
+              return filteredMessages.push(msg);
+            }
+          });
+        }
+      });
+
+      setMessages(filteredMessages);
+    });
+
     socket.on("game started", ({ mssg, participants }) => {
       setRenderRounds(true);
       setRenderPlay(true);
@@ -720,14 +737,19 @@ const Lobby = ({ socket }) => {
   let chooseTimeCounter = 15;
 
   const handleGameStart = () => {
-    setRenderPlay(!renderPlay);
-    setRenderRounds(true);
+    if (players.length === 1) {
+      // console.log("Room must have two players to start the game!");
+      socket.emit("start game condition", roomCode);
+    } else {
+      setRenderPlay(!renderPlay);
+      setRenderRounds(true);
 
-    socket.emit("start game", { roomCode, currRound, hostId: socket.id });
-    // console.log(`Round no. ${currRound} has started!`);
-    setTimeout(() => {
-      playTurn();
-    }, 10000);
+      socket.emit("start game", { roomCode, currRound, hostId: socket.id });
+      // console.log(`Round no. ${currRound} has started!`);
+      setTimeout(() => {
+        playTurn();
+      }, 10000);
+    }
   };
 
   // function to start next round!.
@@ -1663,7 +1685,6 @@ const Lobby = ({ socket }) => {
                 ) : (
                   <button
                     className="startBtn"
-                    disabled={players && players.length === 1}
                     onClick={() => {
                       handleGameStart();
                     }}
