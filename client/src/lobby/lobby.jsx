@@ -1000,38 +1000,41 @@ const Lobby = ({ socket }) => {
                 loading="lazy"
               />
             </span>
-            <div className="mic-container">
-              {/* <VoiceChat socket={socket} /> */}
-              {mute === true ? (
-                <>
-                  <BsFillMicMuteFill
-                    className="mic"
-                    onClick={() => {
-                      functionMic();
-                    }}
-                  />
-                  {displayMicText === true ? (
-                    <p className="displayText">You are Muted!</p>
-                  ) : (
-                    <div className="emptyText"></div>
-                  )}
-                </>
-              ) : (
-                <>
-                  <BsFillMicFill
-                    className="mic"
-                    onClick={() => {
-                      functionMic();
-                    }}
-                  />
-                  {displayMicText === true ? (
-                    <p className="displayText">You are Unmuted now!</p>
-                  ) : (
-                    <div className="emptyText"></div>
-                  )}
-                </>
-              )}
-            </div>
+            {players.length !== 0 && (
+              <div className="mic-container">
+                {/* <VoiceChat socket={socket} /> */}
+                {mute === true ? (
+                  <>
+                    <BsFillMicMuteFill
+                      className="mic"
+                      onClick={() => {
+                        functionMic();
+                      }}
+                    />
+                    {displayMicText === true ? (
+                      <p className="displayText">You are Muted!</p>
+                    ) : (
+                      <div className="emptyText"></div>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <BsFillMicFill
+                      className="mic"
+                      onClick={() => {
+                        functionMic();
+                      }}
+                    />
+                    {displayMicText === true ? (
+                      <p className="displayText">You are Unmuted now!</p>
+                    ) : (
+                      <div className="emptyText"></div>
+                    )}
+                  </>
+                )}
+              </div>
+            )}
+
             {/* play music */}
 
             <audio ref={songRef} />
@@ -1308,7 +1311,11 @@ const Lobby = ({ socket }) => {
                               className="input"
                               value={numbPlayers}
                               disabled={
-                                mySelf && mySelf.host === false ? true : false
+                                (mySelf && mySelf.host === false
+                                  ? true
+                                  : false) || players.length === 0
+                                  ? true
+                                  : false
                               }
                               onChange={(e) => {
                                 selectNoOfPlayers(e);
@@ -1329,14 +1336,16 @@ const Lobby = ({ socket }) => {
                               className="input"
                               value={drawTime}
                               disabled={
-                                mySelf && mySelf.host === false ? true : false
+                                (mySelf && mySelf.host === false
+                                  ? true
+                                  : false) || players.length === 0
+                                  ? true
+                                  : false
                               }
                               onChange={(e) => {
                                 selectDrawTime(e);
                               }}
                             >
-                              <option value="15">15</option>
-                              <option value="20">20</option>
                               <option value="30">30</option>
                               <option value="40">40</option>
                               <option value="50">50</option>
@@ -1357,13 +1366,16 @@ const Lobby = ({ socket }) => {
                               className="input"
                               value={rounds}
                               disabled={
-                                mySelf && mySelf.host === false ? true : false
+                                (mySelf && mySelf.host === false
+                                  ? true
+                                  : false) || players.length === 0
+                                  ? true
+                                  : false
                               }
                               onChange={(e) => {
                                 selectRounds(e);
                               }}
                             >
-                              <option value="2">2</option>
                               <option value="3">3</option>
                               <option value="4">4</option>
                               <option value="5">5</option>
@@ -1379,7 +1391,11 @@ const Lobby = ({ socket }) => {
                               className="input"
                               value={wordCount}
                               disabled={
-                                mySelf && mySelf.host === false ? true : false
+                                (mySelf && mySelf.host === false
+                                  ? true
+                                  : false) || players.length === 0
+                                  ? true
+                                  : false
                               }
                               onChange={(e) => {
                                 selectWordCount(e);
@@ -1398,7 +1414,11 @@ const Lobby = ({ socket }) => {
                               className="input"
                               value={hints}
                               disabled={
-                                mySelf && mySelf.host === false ? true : false
+                                (mySelf && mySelf.host === false
+                                  ? true
+                                  : false) || players.length === 0
+                                  ? true
+                                  : false
                               }
                               onChange={(e) => {
                                 selectHints(e);
@@ -1620,7 +1640,11 @@ const Lobby = ({ socket }) => {
                   : `http://localhost:3000/join/${roomCode}`}
               </span>
 
-              <button className="copyBtn" onClick={() => handleCopy()}>
+              <button
+                className="copyBtn"
+                disabled={players.length === 0}
+                onClick={() => handleCopy()}
+              >
                 Copy
               </button>
             </div>
@@ -1650,6 +1674,7 @@ const Lobby = ({ socket }) => {
               ) : (
                 <button
                   className="leaveBtn"
+                  disabled={players.length === 0}
                   onClick={() => {
                     handleLeave();
                   }}
