@@ -17,6 +17,7 @@ const Lobby = ({ socket }) => {
   const [renderPlay, setRenderPlay] = useState(false);
   const [mute, setMute] = useState(true);
   const [displayMicText, setDisplayMicText] = useState(false);
+  const [useCustom, setUseCustom] = useState(false);
 
   const [messages, setMessages] = useState([]);
   const [roomCode, setRoomCode] = useState("");
@@ -56,6 +57,22 @@ const Lobby = ({ socket }) => {
   const [controlsForAll, setControlsForAll] = useState(true);
 
   useEffect(() => {
+    socket.on("update messages", ({ rooms, roomCode }) => {
+      const localPlayers = rooms[roomCode].players;
+
+      const filteredMessages = [];
+      localPlayers.map((player) => {
+        if (player.id === socket.id) {
+          rooms[roomCode].messages.map((msg) => {
+            if (msg.msgTimestamp >= player.joinedTimestamp) {
+              return filteredMessages.push(msg);
+            }
+          });
+        }
+      });
+
+      setMessages(filteredMessages);
+    });
     // Music controls!
     socket.on("musicForAll", () => {
       setControlsForAll(true);
@@ -724,7 +741,6 @@ const Lobby = ({ socket }) => {
   };
 
   const functionMic = () => {
-    console.log("mySelf:", mySelf);
     setMute(!mute);
     setDisplayMicText(true);
     setTimeout(() => {
@@ -1005,9 +1021,37 @@ const Lobby = ({ socket }) => {
     setControlsForAll(true);
     socket.emit("music controls for all", roomCode);
   };
+
   const handleMusicControlsForHost = () => {
     setControlsForAll(false);
     socket.emit("music controls for host", roomCode);
+  };
+
+  let customWordsInput = "";
+
+  const handleCustomWords = (e) => {
+    customWordsInput = e.target.value;
+  };
+
+  const saveWords = () => {
+    const customwords = customWordsInput
+      .split(",")
+      .map((word) => word.trim().toLowerCase());
+    const validWords = customwords.filter((word) =>
+      /^[a-zA-Z]{3,}$/.test(word.trim())
+    );
+    socket.emit("valid custom words", { roomCode, validWords });
+    console.log("words:", validWords);
+  };
+
+  const triggerCustomWordsUse = () => {
+    setUseCustom(!useCustom);
+    socket.emit("use custom words only", { roomCode, boolean: true });
+  };
+
+  const triggerCustomWordsNotUse = () => {
+    setUseCustom(!useCustom);
+    socket.emit("use custom words only", { roomCode, boolean: false });
   };
   return (
     <div className="lobby-window">
@@ -1529,16 +1573,53 @@ const Lobby = ({ socket }) => {
                           <span className="custom-text">Custom words</span>
                           <div className="custom-text">
                             <span>use custom words only</span>
-                            <button
-                              className="checkBtn"
-                              type="checkbox"
-                            ></button>
+                            {useCustom ? (
+                              <div
+                                className="checkBtn"
+                                onClick={() => {
+                                  triggerCustomWordsNotUse();
+                                }}
+                              >
+                                {useCustom && (
+                                  <div className="smallBox-forHost"></div>
+                                )}
+                              </div>
+                            ) : (
+                              <div
+                                className="checkBtn"
+                                onClick={() => {
+                                  triggerCustomWordsUse();
+                                }}
+                              >
+                                {useCustom && (
+                                  <div className="smallBox-forHost"></div>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                          <div
+                            className="saveWords"
+                            onClick={() => {
+                              saveWords();
+                            }}
+                          >
+                            Save words
                           </div>
                         </div>
                         <div className="customWords-container">
-                          <input
+                          <textarea
+                            onChange={(e) => {
+                              handleCustomWords(e);
+                            }}
+                            disabled={
+                              mySelf && mySelf.host !== true ? true : false
+                            }
                             type="text"
-                            className="customWordsInput"
+                            className={
+                              mySelf && mySelf.host !== true
+                                ? "customWordsInputForPlayer"
+                                : "customWordsInput"
+                            }
                             placeholder="Minimum of 10 words. 1-32 characters per word! 20000 characters maximum. Seperated by a , (comma)"
                           />
                         </div>

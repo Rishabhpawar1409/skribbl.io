@@ -147,6 +147,38 @@ io.on("connection", (socket) => {
     io.to(roomCode).emit("musicForHost");
   });
 
+  socket.on("valid custom words", ({ roomCode, validWords }) => {
+    if (validWords.length < 10) {
+      const msg = {
+        text: "Minimum of 10 words required!",
+        server: true,
+        color: "tomato",
+        serverSpecial: false,
+        msgTimestamp: Date.now(),
+      };
+      rooms[roomCode].messages.length >= 0 &&
+        rooms[roomCode].messages.push(msg);
+      io.to(roomCode).emit("update messages", { rooms, roomCode });
+    } else if (validWords.length > 80) {
+      const msg = {
+        text: "Maximum of 80 words,limit reached!",
+        server: true,
+        color: "tomato",
+        serverSpecial: false,
+        msgTimestamp: Date.now(),
+      };
+      rooms[roomCode].messages.length >= 0 &&
+        rooms[roomCode].messages.push(msg);
+      io.to(roomCode).emit("update messages", { rooms, roomCode });
+    } else {
+      rooms[roomCode].customWords = validWords;
+    }
+  });
+
+  socket.on("use custom words only", ({ roomCode, boolean }) => {
+    rooms[roomCode].useCustomWords = boolean;
+  });
+
   socket.on(
     "create-room",
     ({ roomId, userAvatar, userId, host, userName, joinedTimestamp }) => {
@@ -168,8 +200,10 @@ io.on("connection", (socket) => {
         ],
         messages: [],
         musicControlsForAll: true,
+        useCustomWords: false,
         scoreBoard: [playerScore],
         whoGuessedIt: [],
+        customWords: [],
         roomSettings: {
           players: "8",
           drawTime: "30",
@@ -761,27 +795,54 @@ io.on("connection", (socket) => {
   socket.on(
     "bring words from backend",
     ({ roomCode, player, drawTime, hints }) => {
-      const word1 = {
-        id: "1",
-        text: words[Math.floor(Math.random() * words.length)],
-      };
-      const word2 = {
-        id: "2",
-        text: words[Math.floor(Math.random() * words.length)],
-      };
-      const word3 = {
-        id: "3",
-        text: words[Math.floor(Math.random() * words.length)],
-      };
-      const gotWords = [word1, word2, word3];
+      if (
+        rooms[roomCode].useCustomWords === true &&
+        rooms[roomCode].customWords.length !== 0
+      ) {
+        const words = rooms[roomCode].customWords;
+        const word1 = {
+          id: "1",
+          text: words[Math.floor(Math.random() * words.length)],
+        };
+        const word2 = {
+          id: "2",
+          text: words[Math.floor(Math.random() * words.length)],
+        };
+        const word3 = {
+          id: "3",
+          text: words[Math.floor(Math.random() * words.length)],
+        };
+        const gotWords = [word1, word2, word3];
 
-      io.to(roomCode).emit("got words", {
-        gotWords,
-        player,
-        roomCode,
-        drawTime,
-        hints,
-      });
+        io.to(roomCode).emit("got words", {
+          gotWords,
+          player,
+          roomCode,
+          drawTime,
+          hints,
+        });
+      } else {
+        const word1 = {
+          id: "1",
+          text: words[Math.floor(Math.random() * words.length)],
+        };
+        const word2 = {
+          id: "2",
+          text: words[Math.floor(Math.random() * words.length)],
+        };
+        const word3 = {
+          id: "3",
+          text: words[Math.floor(Math.random() * words.length)],
+        };
+        const gotWords = [word1, word2, word3];
+        io.to(roomCode).emit("got words", {
+          gotWords,
+          player,
+          roomCode,
+          drawTime,
+          hints,
+        });
+      }
     }
   );
 });

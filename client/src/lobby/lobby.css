@@ -524,30 +524,78 @@
     justify-content: center;
     align-items: center;
     margin:0.5rem;
-    border-radius:5px
-}
-.checkBtn{
-    height: 20px;
-    margin-left: 0.25rem;
-    width: 20px;
-    cursor: pointer;
-}
-.checkBtn:hover{
-    border: 1px solid #2c8de7;
+    margin-bottom: 0.85rem;
+    border: radius 5px;
+    border-radius: 5px;
 }
 .customWordsInput{
-    height: 100px;
+    resize:none;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 5px;
+    display: flex;
+    height:100%;
     width: 100%;
-    font-size: 15px;
+    font-size: 14.5px;
     border-radius:5px;
-    border:1px solid grey
+}
+.saveWords{
+    margin-right: 0.5rem;
+    border-radius: 3px;
+    background-color: white;
+    height: fit-content;
+    width: fit-content;
+    padding: 2px;
+    cursor: pointer;
+    font-size: 14px;
+}   
+.saveWords:hover{
+    color: #2c8de7;
+    margin-right: 0.5rem;
+    border-radius: 3px;
+    background-color: white;
+    height: fit-content;
+    width: fit-content;
+    padding: 2px;
+    cursor: pointer;
+    font-size: 14px;
+}
+.customWordsInputForPlayer{
+    cursor:not-allowed;
+    resize:none;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 5px;
+    display: flex;
+    height:100%;
+    width: 100%;
+    font-size: 14.5px;
+    border-radius:5px;
+
 }
 .custom-text{
     margin-left: 1rem;
     margin-right: 1rem;
     color: white;
     font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.checkBtn{
+    border-radius: 2px;
+    height: 17px;
+    background-color: white;
+    margin-left: 0.5rem;
+    width: 17px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.checkBtn:hover{
+    border: 1px solid #2c8de7;
+}
+
 .chat-container{
     /* flex: 1.05; */
     min-width: 300px;
