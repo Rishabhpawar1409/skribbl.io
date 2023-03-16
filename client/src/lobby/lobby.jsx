@@ -9,6 +9,9 @@ import { BsFillMicFill, BsFillMicMuteFill } from "react-icons/bs";
 
 const Lobby = ({ socket }) => {
   const { roomId } = useParams();
+  const port = window.location.port ? `:${window.location.port}` : "";
+  const joinLink = `${window.location.protocol}//${window.location.hostname}${port}/join/${roomId}`;
+
   const navigate = useNavigate();
   const [playFlagTurn, setPlayFlagTurn] = useState(false);
   const [input, setInput] = useState("");
@@ -57,6 +60,9 @@ const Lobby = ({ socket }) => {
   const [controlsForAll, setControlsForAll] = useState(true);
 
   useEffect(() => {
+    socket.on("change settings", (boolean) => {
+      setUseCustom(boolean);
+    });
     socket.on("update messages", ({ rooms, roomCode }) => {
       const localPlayers = rooms[roomCode].players;
 
@@ -324,6 +330,7 @@ const Lobby = ({ socket }) => {
       setRoomsData(rooms);
       setPLayers(rooms[roomId].players);
       setControlsForAll(rooms[roomId].musicControlsForAll);
+      setUseCustom(rooms[roomId].useCustomWords);
     });
 
     socket.on("game condition", ({ rooms, roomCode }) => {
@@ -791,19 +798,17 @@ const Lobby = ({ socket }) => {
     setPlayerTurn(player);
     setIsWordChosed(false);
 
-    bringWords(player, isWordChosed);
-
     const newTimeoutIdForPlayTimer = setTimeout(() => {
       endTurn();
     }, (+drawTime + 15) * 1000);
     setPlayTimeoutId(newTimeoutIdForPlayTimer);
     socket.emit("play turn", {
       roomCode,
-
       players,
       currPlayerIndex,
       newTimeoutIdForPlayTimer,
     });
+    bringWords(player, isWordChosed);
   };
 
   const allPlayerGuessedIt = (players, playTimeoutId, roomCode) => {
@@ -827,16 +832,15 @@ const Lobby = ({ socket }) => {
       }
 
       const guessWordArray = Array.from(guessWord);
-      const hint =
-        guessWordArray[Math.floor(Math.random() * guessWordArray.length)];
+      let hint;
       let hintIndx;
-      guessWordArray.map((letter, index) => {
-        if (letter === hint) {
-          return (hintIndx = index);
-        }
-      });
-      const hintObj = { hint, hintIndx };
+      do {
+        hint =
+          guessWordArray[Math.floor(Math.random() * guessWordArray.length)];
+        hintIndx = guessWordArray.indexOf(hint);
+      } while (renderedHints.some((hintObj) => hintObj.hint === hint));
 
+      const hintObj = { hint, hintIndx };
       renderedHints.push(hintObj);
 
       if (!code) {
@@ -925,7 +929,7 @@ const Lobby = ({ socket }) => {
   const selectWord = (selector) => {
     const selectedWord = selector;
     let wordScreen = false;
-    let player = players[currPlayerIndex];
+    let player = mySelf;
 
     clearTimeout(timeoutId);
     socket.emit("choosing word false", { roomCode, wordScreen });
@@ -1040,8 +1044,8 @@ const Lobby = ({ socket }) => {
     const validWords = customwords.filter((word) =>
       /^[a-zA-Z]{3,}$/.test(word.trim())
     );
+    const filteredWords = Array.from(new Set([...validWords]));
     socket.emit("valid custom words", { roomCode, validWords });
-    console.log("words:", validWords);
   };
 
   const triggerCustomWordsUse = () => {
@@ -1494,8 +1498,6 @@ const Lobby = ({ socket }) => {
                               <option value="1">1</option>
                               <option value="2">2</option>
                               <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="5">5</option>
                             </select>
 
                             <div className="muscic-controls-container">
@@ -1541,9 +1543,15 @@ const Lobby = ({ socket }) => {
                                 <>
                                   <div className="checkerContainer">
                                     {/* For all players */}
-                                    <div className="checkerBox-forPlayer">
+                                    <div
+                                      className="checkerBox-forPlayer"
+                                      style={{ cursor: "not-allowed" }}
+                                    >
                                       {controlsForAll === true ? (
-                                        <div className="smallBox-forPlayer"></div>
+                                        <div
+                                          className="smallBox-forPlayer"
+                                          style={{ cursor: "not-allowed" }}
+                                        ></div>
                                       ) : (
                                         ""
                                       )}
@@ -1553,9 +1561,15 @@ const Lobby = ({ socket }) => {
 
                                   {/* For host only */}
                                   <div className="checkerContainer">
-                                    <div className="checkerBox-forPlayer">
+                                    <div
+                                      className="checkerBox-forPlayer"
+                                      style={{ cursor: "not-allowed" }}
+                                    >
                                       {controlsForAll === false ? (
-                                        <div className="smallBox-forPlayer"></div>
+                                        <div
+                                          className="smallBox-forPlayer"
+                                          style={{ cursor: "not-allowed" }}
+                                        ></div>
                                       ) : (
                                         ""
                                       )}
@@ -1573,38 +1587,85 @@ const Lobby = ({ socket }) => {
                           <span className="custom-text">Custom words</span>
                           <div className="custom-text">
                             <span>use custom words only</span>
-                            {useCustom ? (
+
+                            {mySelf && mySelf.host ? (
+                              useCustom ? (
+                                <div
+                                  className="checkBtn"
+                                  onClick={() => {
+                                    triggerCustomWordsNotUse();
+                                  }}
+                                >
+                                  {useCustom && (
+                                    <div className="smallBox-forHost"></div>
+                                  )}
+                                </div>
+                              ) : (
+                                <div
+                                  className="checkBtn"
+                                  onClick={() => {
+                                    triggerCustomWordsUse();
+                                  }}
+                                >
+                                  {useCustom && (
+                                    <div className="smallBox-forHost"></div>
+                                  )}
+                                </div>
+                              )
+                            ) : useCustom ? (
                               <div
                                 className="checkBtn"
-                                onClick={() => {
-                                  triggerCustomWordsNotUse();
+                                style={{
+                                  backgroundColor: "grey",
+                                  cursor: "not-allowed",
                                 }}
                               >
                                 {useCustom && (
-                                  <div className="smallBox-forHost"></div>
+                                  <div
+                                    className="smallBox-forPlayer"
+                                    style={{ cursor: "not-allowed" }}
+                                  ></div>
                                 )}
                               </div>
                             ) : (
                               <div
                                 className="checkBtn"
-                                onClick={() => {
-                                  triggerCustomWordsUse();
+                                style={{
+                                  cursor: "not-allowed",
+                                  backgroundColor: "grey",
                                 }}
                               >
                                 {useCustom && (
-                                  <div className="smallBox-forHost"></div>
+                                  <div
+                                    className="smallBox-forPlayer"
+                                    style={{ cursor: "not-allowed" }}
+                                  ></div>
                                 )}
                               </div>
                             )}
                           </div>
-                          <div
-                            className="saveWords"
-                            onClick={() => {
-                              saveWords();
-                            }}
-                          >
-                            Save words
-                          </div>
+
+                          {mySelf && mySelf.host ? (
+                            <div
+                              className="saveWords"
+                              onClick={() => {
+                                saveWords();
+                              }}
+                            >
+                              Save words
+                            </div>
+                          ) : (
+                            <div
+                              className="saveWords"
+                              style={{
+                                cursor: "not-allowed",
+                                backgroundColor: "grey",
+                                color: "silver",
+                              }}
+                            >
+                              Save words
+                            </div>
+                          )}
                         </div>
                         <div className="customWords-container">
                           <textarea
@@ -1620,7 +1681,7 @@ const Lobby = ({ socket }) => {
                                 ? "customWordsInputForPlayer"
                                 : "customWordsInput"
                             }
-                            placeholder="Minimum of 10 words. 1-32 characters per word! 20000 characters maximum. Seperated by a , (comma)"
+                            placeholder="Minimum of 10 words. 1-32 characters per word! 20000 characters maximum. Seperated by a , (comma), don't use symbols / duplicate words it will get removed!"
                           />
                         </div>
                       </>
@@ -1738,9 +1799,7 @@ const Lobby = ({ socket }) => {
                   handleShowText();
                 }}
               >
-                {showLink === false
-                  ? "Invite Your Friends"
-                  : `http://localhost:3000/join/${roomCode}`}
+                {showLink === false ? "Invite Your Friends" : joinLink}
               </span>
 
               <button

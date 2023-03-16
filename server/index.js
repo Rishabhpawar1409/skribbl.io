@@ -177,6 +177,7 @@ io.on("connection", (socket) => {
 
   socket.on("use custom words only", ({ roomCode, boolean }) => {
     rooms[roomCode].useCustomWords = boolean;
+    io.to(roomCode).emit("change settings", boolean);
   });
 
   socket.on(
@@ -382,7 +383,6 @@ io.on("connection", (socket) => {
   socket.on(
     "play turn",
     ({ roomCode, players, currPlayerIndex, newTimeoutIdForPlayTimer }) => {
-      // console.log("timeoutId:", newTimeoutIdForPlayTimer);
       let playerTurn = players[currPlayerIndex];
 
       const msg = {
@@ -800,18 +800,25 @@ io.on("connection", (socket) => {
         rooms[roomCode].customWords.length !== 0
       ) {
         const words = rooms[roomCode].customWords;
-        const word1 = {
-          id: "1",
-          text: words[Math.floor(Math.random() * words.length)],
-        };
-        const word2 = {
-          id: "2",
-          text: words[Math.floor(Math.random() * words.length)],
-        };
-        const word3 = {
-          id: "3",
-          text: words[Math.floor(Math.random() * words.length)],
-        };
+        let word1, word2, word3;
+        do {
+          word1 = {
+            id: "1",
+            text: words[Math.floor(Math.random() * words.length)],
+          };
+          word2 = {
+            id: "2",
+            text: words[Math.floor(Math.random() * words.length)],
+          };
+          word3 = {
+            id: "3",
+            text: words[Math.floor(Math.random() * words.length)],
+          };
+        } while (
+          word1.text === word2.text ||
+          word2.text === word3.text ||
+          word3.text === word1.text
+        );
         const gotWords = [word1, word2, word3];
 
         io.to(roomCode).emit("got words", {
@@ -822,19 +829,27 @@ io.on("connection", (socket) => {
           hints,
         });
       } else {
-        const word1 = {
-          id: "1",
-          text: words[Math.floor(Math.random() * words.length)],
-        };
-        const word2 = {
-          id: "2",
-          text: words[Math.floor(Math.random() * words.length)],
-        };
-        const word3 = {
-          id: "3",
-          text: words[Math.floor(Math.random() * words.length)],
-        };
+        let word1, word2, word3;
+        do {
+          word1 = {
+            id: "1",
+            text: words[Math.floor(Math.random() * words.length)],
+          };
+          word2 = {
+            id: "2",
+            text: words[Math.floor(Math.random() * words.length)],
+          };
+          word3 = {
+            id: "3",
+            text: words[Math.floor(Math.random() * words.length)],
+          };
+        } while (
+          word1.text === word2.text ||
+          word2.text === word3.text ||
+          word3.text === word1.text
+        );
         const gotWords = [word1, word2, word3];
+
         io.to(roomCode).emit("got words", {
           gotWords,
           player,

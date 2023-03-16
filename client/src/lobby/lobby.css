@@ -535,7 +535,7 @@
     display: flex;
     height:100%;
     width: 100%;
-    font-size: 14.5px;
+    font-size: 14px;
     border-radius:5px;
 }
 .saveWords{
@@ -567,9 +567,9 @@
     display: flex;
     height:100%;
     width: 100%;
-    font-size: 14.5px;
+    font-size: 14px;
     border-radius:5px;
-
+    color:silver
 }
 .custom-text{
     margin-left: 1rem;
@@ -600,7 +600,6 @@
     /* flex: 1.05; */
     min-width: 300px;
     max-height: 500px;
-
     margin-left: 0.5rem;
     display: flex;
     flex-direction: column;
