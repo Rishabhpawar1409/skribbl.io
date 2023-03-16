@@ -595,7 +595,6 @@ const Lobby = ({ socket }) => {
 
   // function to submit the chat form
   const handleSubmit = (e) => {
-    // console.log("at submit time:", playTimeoutId);
     const myTimestamp = mySelf.joinedTimeStamp;
     e.preventDefault();
 
@@ -729,7 +728,6 @@ const Lobby = ({ socket }) => {
   useEffect(() => {
     if (distance !== 0) {
       if (distance <= thresholdValue) {
-        // console.log("bruh you are two close!");
         socket.emit("word guessed is close", { roomCode, mySelf });
       }
     }
