@@ -47,6 +47,7 @@ const Lobby = ({ socket }) => {
   const [renderRounds, setRenderRounds] = useState(false);
 
   const songRef = useRef("");
+  let currSongName;
 
   // this timeout id is for choosing the word timer.
   const [timeoutId, setTimeoutId] = useState(null);
@@ -169,6 +170,7 @@ const Lobby = ({ socket }) => {
     });
     // socket for music.
     socket.on("video data", ({ songObject, roomCode, rooms }) => {
+      currSongName = songObject.songName;
       songRef.current.src = songObject.url;
       songRef.current.play();
       setCurrSongObj(songObject);
@@ -284,6 +286,7 @@ const Lobby = ({ socket }) => {
     });
 
     socket.on("set song data", (songData) => {
+      setCurrSongObj(songData);
       songRef.current.src = songData.url;
       songRef.current.currentTime = songData.currTime;
       songRef.current.play();
@@ -291,6 +294,7 @@ const Lobby = ({ socket }) => {
 
     socket.on("room data", ({ roomId, rooms }) => {
       const songData = {
+        songName: currSongName,
         url: songRef.current.src,
         duration: songRef.current.duration,
         currTime: songRef.current.currentTime,

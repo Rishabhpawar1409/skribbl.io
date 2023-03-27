@@ -66,6 +66,7 @@ const JoinRoom = ({ uuid, socket }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setUserName(input);
+    setInput("");
   };
 
   // function for selecting the avatar
