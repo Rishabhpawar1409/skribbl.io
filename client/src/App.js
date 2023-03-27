@@ -12,7 +12,6 @@ import { v4 as uuidv4 } from "uuid";
 
 function App() {
   const socket = io("http://localhost:3001");
-  const roomId = "3243fa52-7c2d-423a-93bf-f1772fdac07a";
   const [message, setMessage] = useState("");
   const [playersData, setPlayersData] = useState([]);
   const [scoreBoard, setScoreBoard] = useState([]);
@@ -51,6 +50,7 @@ function App() {
             path="/:roomId"
             element={<Lobby message={message} socket={socket} />}
           />
+
           <Route
             exact
             path="/gameOver"

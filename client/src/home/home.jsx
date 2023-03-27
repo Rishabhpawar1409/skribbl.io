@@ -64,19 +64,12 @@ const Home = ({ uuid, socket }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setUserName(input);
-    setInput("");
   };
 
   // function for selecting the avatar
   const handleSelect = (obj) => {
     setUserData(obj);
     setIsUploaded(false);
-  };
-
-  // function to join the room
-
-  const handleJoin = (e) => {
-    e.preventDefault();
   };
 
   // function to upload the image from the device
@@ -114,7 +107,8 @@ const Home = ({ uuid, socket }) => {
   };
 
   // function to join the room,it will navigate the user to specific room , it will emit the socket to join the room
-  const joinRoom = () => {
+  const joinRoom = (e) => {
+    e.preventDefault();
     const roomData = {
       roomId: linkInput,
       userId: socket.id,
@@ -170,7 +164,8 @@ const Home = ({ uuid, socket }) => {
             <input
               value={input}
               type="text"
-              placeholder="Enter your name"
+              maxLength={20}
+              placeholder="Enter and submit your name"
               className="userName-input"
               onChange={(e) => {
                 setInput(e.target.value);
@@ -259,7 +254,7 @@ const Home = ({ uuid, socket }) => {
           <form
             className="join-conatiner"
             onSubmit={(e) => {
-              handleJoin(e);
+              joinRoom(e);
             }}
           >
             <input
@@ -272,12 +267,7 @@ const Home = ({ uuid, socket }) => {
               }}
             />
 
-            <button
-              className="joinBtn"
-              onClick={() => {
-                joinRoom();
-              }}
-            >
+            <button type="submit" className="joinBtn">
               Join!
             </button>
           </form>

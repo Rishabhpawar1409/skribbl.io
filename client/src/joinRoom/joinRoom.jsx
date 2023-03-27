@@ -66,7 +66,6 @@ const JoinRoom = ({ uuid, socket }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setUserName(input);
-    setInput("");
   };
 
   // function for selecting the avatar
@@ -75,10 +74,6 @@ const JoinRoom = ({ uuid, socket }) => {
   };
 
   // function to join the room
-
-  const handleJoin = (e) => {
-    e.preventDefault();
-  };
 
   // function to upload the image from the device
 
@@ -115,7 +110,8 @@ const JoinRoom = ({ uuid, socket }) => {
   };
 
   // function to join the room,it will navigate the user to specific room , it will emit the socket to join the room
-  const joinRoom = () => {
+  const joinRoom = (e) => {
+    e.preventDefault();
     const roomData = {
       roomId,
       userId: socket.id,
@@ -153,7 +149,7 @@ const JoinRoom = ({ uuid, socket }) => {
     <div className="avatar-window">
       <>
         <span className="textHeader">
-          <img src="/assets/skribblLogo.gif" alt="Scribbl" loading="lazy" />
+          <img src="/assets/skribblLogo.gif" alt="Skribbl" loading="lazy" />
         </span>
       </>
       <div className="menu-container">
@@ -255,7 +251,7 @@ const JoinRoom = ({ uuid, socket }) => {
           <form
             className="join-conatiner"
             onSubmit={(e) => {
-              handleJoin(e);
+              joinRoom(e);
             }}
           >
             <input
@@ -268,12 +264,7 @@ const JoinRoom = ({ uuid, socket }) => {
               }}
             />
 
-            <button
-              className="joinBtn"
-              onClick={() => {
-                joinRoom();
-              }}
-            >
+            <button type="submit" className="joinBtn">
               Join!
             </button>
           </form>

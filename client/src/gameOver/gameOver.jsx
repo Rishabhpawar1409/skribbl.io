@@ -15,7 +15,6 @@ const GameOver = ({ players, scoreCard }) => {
         }
       });
     });
-    setScoreData(scoreCard);
     setPlayersData(sortedPlayers.sort((a, b) => b.score - a.score));
   }, []);
 

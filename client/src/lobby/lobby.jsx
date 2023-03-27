@@ -4,7 +4,6 @@ import PlayGround from "../playGround/playGround";
 import VoiceChat from "../voiceChat";
 import { TbShoeOff, TbShoe } from "react-icons/tb";
 import { useNavigate, useParams } from "react-router-dom";
-
 import { BsFillMicFill, BsFillMicMuteFill } from "react-icons/bs";
 
 const Lobby = ({ socket }) => {
@@ -577,22 +576,6 @@ const Lobby = ({ socket }) => {
     });
   }, []);
 
-  const colors = [
-    "43C6AC",
-    "237A57",
-    "A555EC",
-    "FF597B",
-    "227C70",
-    "C58940",
-    "F8F988",
-    "FF7000",
-    "22A39F",
-    "CFFDE1",
-    "735F32",
-    "EB6440",
-    "54B435",
-  ];
-
   // function to submit the chat form
   const handleSubmit = (e) => {
     const myTimestamp = mySelf.joinedTimeStamp;
@@ -737,12 +720,6 @@ const Lobby = ({ socket }) => {
 
   const handleShowText = () => {
     setShowLink(!showLink);
-  };
-
-  // functiuon to return a background color for music container.
-  const colorPicker = () => {
-    var color = colors[Math.floor(Math.random() * colors.length)];
-    return `#${color}`;
   };
 
   const functionMic = () => {
@@ -1176,8 +1153,12 @@ const Lobby = ({ socket }) => {
                     return (
                       <div
                         className={
-                          player.isGuessed === true
-                            ? "playerInfo-greenContainer"
+                          whosTurn !== null
+                            ? player.id === whosTurn.id
+                              ? "playerInfo-containerWithTurn"
+                              : player.isGuessed === true
+                              ? "playerInfo-greenContainer"
+                              : "playerInfo-whiteSmokeContainer"
                             : "playerInfo-whiteSmokeContainer"
                         }
                         key={index}
@@ -1711,7 +1692,7 @@ const Lobby = ({ socket }) => {
                               }}
                             >
                               {players.length > 0
-                                ? players.map((player, index) => {
+                                ? players.map((player) => {
                                     return player.id === msg.id ? (
                                       <p className="playerName" key={player.id}>
                                         {player.userName} :
@@ -1732,6 +1713,7 @@ const Lobby = ({ socket }) => {
                                 key={index}
                                 style={{
                                   color: msg.color,
+                                  fontSize: 13,
                                   fontWeight: "bold",
                                   backgroundColor:
                                     index % 2 === 0 ? "white" : "whitesmoke",
@@ -1750,6 +1732,7 @@ const Lobby = ({ socket }) => {
                               key={index}
                               style={{
                                 color: msg.color,
+                                fontSize: 13,
                                 fontWeight: "bold",
                                 backgroundColor:
                                   index % 2 === 0 ? "white" : "whitesmoke",
