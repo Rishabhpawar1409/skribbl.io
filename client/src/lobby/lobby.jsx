@@ -963,11 +963,6 @@ const Lobby = ({ socket }) => {
     socket.emit("word count", { setting, roomCode });
   };
 
-  const handleBackBtn = () => {
-    setRenderPlay(!renderPlay);
-    endGame();
-  };
-
   const getKicksData = (player) => {
     socket.emit("get kicks", { roomCode, player, mySelf });
   };
@@ -1712,7 +1707,14 @@ const Lobby = ({ socket }) => {
                               </p>
                             </div>
                           ) : msg.id !== mySelf.id ? (
-                            <div className="msgContainer" key={index}>
+                            <div
+                              className="msgContainer"
+                              key={index}
+                              style={{
+                                backgroundColor:
+                                  index % 2 === 0 ? "white" : "whitesmoke",
+                              }}
+                            >
                               <p
                                 className="message-server"
                                 key={index}
@@ -1720,8 +1722,6 @@ const Lobby = ({ socket }) => {
                                   color: msg.color,
                                   fontSize: 13,
                                   fontWeight: "bold",
-                                  backgroundColor:
-                                    index % 2 === 0 ? "white" : "whitesmoke",
                                 }}
                               >
                                 {msg.text}
@@ -1731,7 +1731,14 @@ const Lobby = ({ socket }) => {
                             ""
                           )
                         ) : msg.server === true && msg.id === socket.id ? (
-                          <div className="msgContainer" key={index}>
+                          <div
+                            className="msgContainer"
+                            key={index}
+                            style={{
+                              backgroundColor:
+                                index % 2 === 0 ? "white" : "whitesmoke",
+                            }}
+                          >
                             <p
                               className="message-server"
                               key={index}
@@ -1739,8 +1746,6 @@ const Lobby = ({ socket }) => {
                                 color: msg.color,
                                 fontSize: 13,
                                 fontWeight: "bold",
-                                backgroundColor:
-                                  index % 2 === 0 ? "white" : "whitesmoke",
                               }}
                             >
                               {msg.text}
@@ -1799,25 +1804,14 @@ const Lobby = ({ socket }) => {
 
             <div className="startBtn-container">
               {mySelf && mySelf.host === true ? (
-                renderPlay === true ? (
-                  <button
-                    className="startBtn"
-                    onClick={() => {
-                      handleBackBtn();
-                    }}
-                  >
-                    Back
-                  </button>
-                ) : (
-                  <button
-                    className="startBtn"
-                    onClick={() => {
-                      handleGameStart();
-                    }}
-                  >
-                    Start
-                  </button>
-                )
+                <button
+                  className="startBtn"
+                  onClick={() => {
+                    handleGameStart();
+                  }}
+                >
+                  Start
+                </button>
               ) : (
                 <button
                   className="leaveBtn"
