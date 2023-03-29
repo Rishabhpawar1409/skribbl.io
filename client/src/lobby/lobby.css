@@ -12,49 +12,29 @@
     align-items: center;
     justify-content: space-between;
 }
-.musicDetails-container{
+
+
+.skribbleText{
+    font-size: 50px;
+    margin-left: 0.25rem;
+    margin-top: 0.85rem;
+    height: 95px;
+    width: 440px; 
+}
+.mic-container{
+    flex: 2;
     display: flex;
     flex-direction: column;
-}
-.music-title{
-    font-size: 12px;
-    text-align: start;
-    margin-top:0.5rem;
-    margin-left: 0.35rem;
-    margin-bottom: 0.5rem;
-}
-.singer-imageAndName-container{
-    margin-left:0.35rem;
-    margin-top: 0;
-    display: flex;
+    justify-content:flex-start;
     align-items: center;
-
 }
-.singerImage{
-    height: 100%;
-    width: 100%;
-    border-radius: 50%;
-    
-}
-.singerImage-container{
-    height:25px;
-    width: 25px;
-    margin-right:0.35rem
-}
-
-.range{
-    width: 90%;
-    margin-left: 0.35rem;
-    margin-top: 0.5rem;
+.mic{
+    margin-top: 2rem;
     cursor: pointer;
+    color: whitesmoke;
+    font-size: 40px;
 }
-.timeRange-container{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 12px;
-    margin-bottom: 0;
-}
+
 .actions-container{
     width: 100%;
     display: flex;
@@ -214,25 +194,6 @@
 }
 
 
-.skribbleText{
-    font-size: 50px;
-    margin-left: 0.25rem;
-    margin-top: 0.85rem;
-    height: 95px;
-    width: 440px; 
-}
-.mic-container{
-    display: flex;
-    flex-direction: column;
-    justify-content:flex-start;
-    align-items: center;
-}
-.mic{
-    margin-top: 2rem;
-    cursor: pointer;
-    color: whitesmoke;
-    font-size: 40px;
-}
 .searchInput{
     height: 30px;
     width: 250px;
@@ -606,14 +567,18 @@
     
 }
 .message-container{
-    flex: 3.45;
+    width: 100%;
+    height: 85%;
+    /* flex: 3.45; */
     overflow-y: scroll;
+    overflow-x: hidden;
     overflow: auto;
     border-radius: 5px;
 }
 
 .chat-input{
-    max-width: 100%;
+    width: 100%;
+    height: 15%;
 }
 
 .form-input{

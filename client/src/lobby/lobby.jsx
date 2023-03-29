@@ -644,6 +644,7 @@ const Lobby = ({ socket }) => {
     }
 
     // Music controls!
+
     if (controlsForAll === true) {
       // condition to send the socket to play the song!
       if (input.startsWith(".play ")) {
