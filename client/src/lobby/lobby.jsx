@@ -972,7 +972,8 @@ const Lobby = ({ socket }) => {
   };
 
   const handleCopy = async () => {
-    const text = `http://localhost:3000/join/${roomCode}`;
+    // const text = `http://localhost:3000/join/${roomCode}`;
+    const text = joinLink;
     try {
       await navigator.clipboard.writeText(text);
     } catch (err) {

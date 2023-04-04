@@ -12,7 +12,7 @@ import { v4 as uuidv4 } from "uuid";
 
 function App() {
   const port = process.env.REACT_APP_BACKEND_URL || "http://localhost:3001";
-  // const socket = io("http://localhost:3001");
+
   const socket = io(port);
 
   const [playersData, setPlayersData] = useState([]);
