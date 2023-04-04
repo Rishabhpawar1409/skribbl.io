@@ -1057,7 +1057,7 @@ const Lobby = ({ socket }) => {
                       }}
                     />
                     {displayMicText === true ? (
-                      <p className="displayText">You are Muted!</p>
+                      <p className="displayText">I'm working on it!</p>
                     ) : (
                       <div className="emptyText"></div>
                     )}
@@ -1071,7 +1071,7 @@ const Lobby = ({ socket }) => {
                       }}
                     />
                     {displayMicText === true ? (
-                      <p className="displayText">You are Unmuted now!</p>
+                      <p className="displayText">I'm working on it!</p>
                     ) : (
                       <div className="emptyText"></div>
                     )}

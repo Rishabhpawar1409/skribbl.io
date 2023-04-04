@@ -11,8 +11,10 @@ import { io } from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
 
 function App() {
-  const socket = io("http://localhost:3001");
-  const [message, setMessage] = useState("");
+  const port = process.env.REACT_APP_BACKEND_URL || "http://localhost:3001";
+  // const socket = io("http://localhost:3001");
+  const socket = io(port);
+
   const [playersData, setPlayersData] = useState([]);
   const [scoreBoard, setScoreBoard] = useState([]);
 
@@ -45,11 +47,7 @@ function App() {
             path="/join/:roomId"
             element={<JoinRoom uuid={uuidv4} socket={socket} />}
           />
-          <Route
-            exact
-            path="/:roomId"
-            element={<Lobby message={message} socket={socket} />}
-          />
+          <Route exact path="/:roomId" element={<Lobby socket={socket} />} />
 
           <Route
             exact

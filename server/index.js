@@ -11,6 +11,7 @@ const io = new Server(httpServer, {
   },
 });
 
+const port = process.env.PORT || 3001;
 const rooms = {};
 const songs = {};
 const songNameArray = [];
@@ -862,6 +863,6 @@ io.on("connection", (socket) => {
   );
 });
 
-httpServer.listen(3001, () => {
-  console.log("listening on port 3001");
+httpServer.listen(port, () => {
+  console.log(`listening on ${port}`);
 });
