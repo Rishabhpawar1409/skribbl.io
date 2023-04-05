@@ -7,10 +7,7 @@ import "dotenv/config";
 const httpServer = createServer();
 const io = new Server(httpServer, {
   cors: {
-    origin: [
-      "https://skribbl-rishabh-pawar.vercel.app",
-      "http://localhost:3000",
-    ],
+    origin: "https://skribbl-rishabh-pawar.vercel.app",
   },
 });
 
