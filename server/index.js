@@ -7,7 +7,7 @@ import "dotenv/config";
 const httpServer = createServer();
 const io = new Server(httpServer, {
   cors: {
-    origin: "https://skribbl-rishabh-pawar.vercel.app",
+    origin: "*",
   },
 });
 
@@ -292,8 +292,8 @@ io.on("connection", (socket) => {
     }
   );
 
-  socket.on("share canvas", ({ dataURL, roomCode }) => {
-    socket.to(roomCode).emit("canvas picture", dataURL);
+  socket.on("share canvas", ({ imageURL, roomCode }) => {
+    socket.to(roomCode).emit("canvas picture", imageURL);
   });
 
   socket.on("start game condition", (roomCode) => {

@@ -1295,6 +1295,11 @@ const Lobby = ({ socket }) => {
                         players={players}
                         playerTurn={playerTurn}
                         whosTurn={whosTurn}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          backgroundColor: "white",
+                        }}
                       />
                     ) : (
                       <>

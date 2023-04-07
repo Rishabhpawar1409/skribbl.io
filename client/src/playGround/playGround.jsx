@@ -1,9 +1,8 @@
 import React from "react";
-import { useCallback } from "react";
-import { useEffect } from "react";
-import { useRef, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./playGround.css";
 import { MdOutlineDeleteForever } from "react-icons/md";
+import { ReactSketchCanvas } from "react-sketch-canvas";
 
 const PlayGround = ({
   socket,
@@ -12,7 +11,9 @@ const PlayGround = ({
   players,
   playerTurn,
   whosTurn,
+  style,
 }) => {
+  const sketchRef = useRef(null);
   const colors = [
     "red",
     "green",
@@ -31,13 +32,8 @@ const PlayGround = ({
   const fonts = ["2", "5", "8", "10"];
   const [selectedColor, setSelectedColor] = useState(colors[5]);
   const [selectedFont, setSelectedFont] = useState("2");
-  const [lastPosition, setPosition] = useState({ x: 0, y: 0 });
-  const [mouseDown, setMouseDown] = useState(false);
-  const [canvasImageUrl, setCanavasImageUrl] = useState("");
   const [currentPlayer, setCurrentPlayer] = useState({});
-
-  const canvasRef = useRef(null);
-  const contextRef = useRef(null);
+  const [canvasImageUrl, setCanavasImageUrl] = useState("");
 
   useEffect(() => {
     players.map((player) => {
@@ -46,83 +42,35 @@ const PlayGround = ({
   }, []);
 
   useEffect(() => {
-    if (canvasRef.current) {
-      contextRef.current = canvasRef.current.getContext("2d");
-      contextRef.current.canvas.width = window.innerWidth / 2;
-      contextRef.current.canvas.height = window.innerHeight / 2;
-    }
-
     socket.on("canvas picture", (imageURL) => {
       setCanavasImageUrl(imageURL);
     });
   }, []);
 
-  const onMouseDown = (e) => {
-    setPosition({
-      x: e.pageX,
-      y: e.pageY,
-    });
-    setMouseDown(true);
+  const onColorSelect = (color) => {
+    setSelectedColor(color);
   };
 
-  const onMouseUp = (e) => {
-    setMouseDown(false);
+  const onFontSelect = (font) => {
+    setSelectedFont(font);
   };
 
-  const onMouseLeave = (e) => {
-    setMouseDown(false);
+  const onClearCanvas = () => {
+    sketchRef.current.resetCanvas();
   };
-
-  const draw = useCallback(
-    (x, y) => {
-      if (mouseDown) {
-        contextRef.current.beginPath();
-        contextRef.current.strokeStyle = selectedColor;
-        contextRef.current.lineWidth = selectedFont;
-        contextRef.current.lineJoin = "round";
-        contextRef.current.moveTo(lastPosition.x, lastPosition.y);
-        contextRef.current.lineTo(x, y);
-        contextRef.current.closePath();
-        contextRef.current.stroke();
-        timeOut();
-        setPosition({
-          x,
-          y,
-        });
-      }
-    },
-    [lastPosition, mouseDown, selectedColor, setPosition, selectedFont]
-  );
-
-  // converting the canvas data into a image URL
+  const shareCanvasImage = async () => {
+    try {
+      const imageURL = await sketchRef.current.exportImage("png");
+      socket.emit("share canvas", { imageURL, roomsData, roomCode });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const timeOut = () => {
     setTimeout(() => {
-      const dataURL = canvasRef.current && canvasRef.current.toDataURL();
-      // console.log(dataURL);
-      socket.emit("share canvas", { dataURL, roomsData, roomCode });
+      shareCanvasImage();
     }, 1000);
   };
-
-  const onMouseMove = (e) => {
-    draw(e.pageX, e.pageY);
-  };
-
-  const click = () => {
-    contextRef.current.clearRect(
-      0,
-      0,
-      contextRef.current.canvas.width,
-      contextRef.current.canvas.height
-    );
-  };
-  // if (whosTurn !== null) {
-  //   if (whosTurn.id !== socket.id) {
-  //     console.log("It's not my turn im just gonna see the picture!");
-  //   } else {
-  //     console.log("Yeah it's my turn i'm gonna draw the picture!");
-  //   }
-  // }
-
   return whosTurn !== null ? (
     whosTurn.id !== socket.id ? (
       <div className="pictureContainer">
@@ -130,20 +78,22 @@ const PlayGround = ({
       </div>
     ) : (
       <>
-        <canvas
-          className="canvas-container"
-          ref={canvasRef}
-          onMouseMove={onMouseMove}
-          onMouseUp={onMouseUp}
-          onMouseDown={onMouseDown}
-          onMouseLeave={onMouseLeave}
+        <ReactSketchCanvas
+          ref={sketchRef}
+          width={style.width}
+          height={style.height}
+          strokeWidth={selectedFont}
+          strokeColor={selectedColor}
+          onChange={() => {
+            timeOut();
+          }}
         />
         <div className="canvas-actionContainer">
           {colors.map((color, index) => {
             return (
               <div
                 onClick={() => {
-                  setSelectedColor(colors[index]);
+                  onColorSelect(color);
                 }}
                 key={index}
                 className="ogColors"
@@ -154,7 +104,7 @@ const PlayGround = ({
           <MdOutlineDeleteForever
             className="clearBtn"
             onClick={() => {
-              click();
+              onClearCanvas();
             }}
           />
 
@@ -169,7 +119,7 @@ const PlayGround = ({
                       : "font-container"
                   }
                   onClick={() => {
-                    setSelectedFont(font);
+                    onFontSelect(font);
                   }}
                 >
                   {font}
