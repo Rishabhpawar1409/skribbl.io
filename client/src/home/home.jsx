@@ -166,7 +166,7 @@ const Home = ({ uuid, socket }) => {
               value={input}
               type="text"
               maxLength={20}
-              placeholder="Enter and submit your name"
+              placeholder="Enter your name"
               className="userName-input"
               onChange={(e) => {
                 setInput(e.target.value);
@@ -260,7 +260,7 @@ const Home = ({ uuid, socket }) => {
           >
             <input
               type="text"
-              placeholder="Paste your link here.."
+              placeholder="Paste your room code here..."
               className="join-input"
               value={linkInput}
               onChange={(e) => {

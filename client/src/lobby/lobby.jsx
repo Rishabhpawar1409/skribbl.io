@@ -129,23 +129,25 @@ const Lobby = ({ socket }) => {
     );
     // socket for user get disconnected.
     socket.on("player disconnected", ({ rooms, roomId }) => {
-      const localPlayers = rooms[roomId].players;
-      localPlayers.map((checker) => {
-        if (checker.id === socket.id) {
-          return setMySelf(checker);
-        }
-      });
+      const localPlayers = rooms[roomId] && rooms[roomId].players;
+      localPlayers &&
+        localPlayers.map((checker) => {
+          if (checker.id === socket.id) {
+            return setMySelf(checker);
+          }
+        });
       const scores = rooms[roomId].scoreBoard;
       const filteredMessages = [];
-      localPlayers.map((player) => {
-        if (player.id === socket.id) {
-          rooms[roomId].messages.map((msg) => {
-            if (msg.msgTimestamp >= player.joinedTimestamp) {
-              return filteredMessages.push(msg);
-            }
-          });
-        }
-      });
+      localPlayers &&
+        localPlayers.map((player) => {
+          if (player.id === socket.id) {
+            rooms[roomId].messages.map((msg) => {
+              if (msg.msgTimestamp >= player.joinedTimestamp) {
+                return filteredMessages.push(msg);
+              }
+            });
+          }
+        });
       setPLayers(localPlayers);
       setMessages(filteredMessages);
       setScoreCard(scores);
@@ -1772,6 +1774,7 @@ const Lobby = ({ socket }) => {
                   >
                     <input
                       className="form-input"
+                      maxLength={50}
                       disabled={
                         whosTurn && whosTurn.id === mySelf.id ? true : false
                       }
@@ -1810,14 +1813,18 @@ const Lobby = ({ socket }) => {
 
             <div className="startBtn-container">
               {mySelf && mySelf.host === true ? (
-                <button
-                  className="startBtn"
-                  onClick={() => {
-                    handleGameStart();
-                  }}
-                >
-                  Start
-                </button>
+                renderPlay ? (
+                  ""
+                ) : (
+                  <button
+                    className="startBtn"
+                    onClick={() => {
+                      handleGameStart();
+                    }}
+                  >
+                    Start
+                  </button>
+                )
               ) : (
                 <button
                   className="leaveBtn"

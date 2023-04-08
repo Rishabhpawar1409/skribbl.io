@@ -59,11 +59,13 @@ const PlayGround = ({
     sketchRef.current.resetCanvas();
   };
   const shareCanvasImage = async () => {
-    try {
-      const imageURL = await sketchRef.current.exportImage("png");
-      socket.emit("share canvas", { imageURL, roomsData, roomCode });
-    } catch (error) {
-      console.log(error);
+    if (sketchRef.current) {
+      try {
+        const imageURL = await sketchRef.current.exportImage("png");
+        socket.emit("share canvas", { imageURL, roomsData, roomCode });
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
   const timeOut = () => {
