@@ -122,11 +122,15 @@ const JoinRoom = ({ uuid, socket }) => {
       joinedTimestamp: Date.now(),
     };
     if (userName && userData !== "") {
-      if (rooms[roomId].players.length === 0) {
-        navigate("/Invalid_room_Id");
+      if (rooms[roomId]) {
+        if (rooms[roomId].players.length === 0) {
+          navigate("/Invalid_room_Id");
+        } else {
+          socket.emit("join-room", roomData);
+          navigate(`/${roomData.roomId}`);
+        }
       } else {
-        socket.emit("join-room", roomData);
-        navigate(`/${roomData.roomId}`);
+        navigate("/Invalid_room_Id");
       }
     }
   };

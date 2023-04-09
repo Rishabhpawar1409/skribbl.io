@@ -595,6 +595,18 @@ io.on("connection", (socket) => {
               return checker.id !== currentPlayer.id;
             }
           );
+
+          rooms[roomCode].players = rooms[roomCode].players.map((player) => {
+            if (player.id !== currentPlayer.id) {
+              return {
+                ...player,
+                kicksGot: player.kicksGot.filter((checker) => {
+                  return checker !== currentPlayer.id;
+                }),
+              };
+            }
+          });
+
           rooms[roomCode].messages = rooms[roomCode].messages.filter((msg) => {
             return msg.id !== currentPlayer.id;
           });
@@ -656,6 +668,7 @@ io.on("connection", (socket) => {
       }
     }
   });
+
   // sockets for music.
 
   socket.on("search input for music", ({ roomCode, searchInput }) => {
