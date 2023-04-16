@@ -52,7 +52,13 @@ function App() {
           <Route
             exact
             path="/gameOver"
-            element={<GameOver players={playersData} scoreCard={scoreBoard} />}
+            element={
+              <GameOver
+                socket={socket}
+                players={playersData}
+                scoreCard={scoreBoard}
+              />
+            }
           />
           <Route exact path="/Invalid_room_Id" element={<InvalidRoom />} />
         </Routes>

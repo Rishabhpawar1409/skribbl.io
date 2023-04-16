@@ -3,8 +3,23 @@ import "./gameOver.css";
 import { useNavigate } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 
-const GameOver = ({ players, scoreCard }) => {
+const GameOver = ({ socket, players, scoreCard }) => {
   const [playersData, setPlayersData] = useState([]);
+
+  useEffect(() => {
+    socket.on("end the game", ({ players, scoreCard }) => {
+      const sortedPlayers = [];
+      scoreCard.map((scorer) => {
+        players.map((player) => {
+          if (scorer.playerId === player.id) {
+            const soloPlayer = { player, score: scorer.score };
+            sortedPlayers.push(soloPlayer);
+          }
+        });
+      });
+      setPlayersData(sortedPlayers.sort((a, b) => b.score - a.score));
+    });
+  }, []);
   useEffect(() => {
     const sortedPlayers = [];
     scoreCard.map((scorer) => {
