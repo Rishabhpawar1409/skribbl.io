@@ -4,6 +4,7 @@ import words from "./data.js";
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
+import fetch from "node-fetch";
 
 const port = process.env.PORT || 3001;
 const app = express();
