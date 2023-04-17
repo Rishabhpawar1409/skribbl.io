@@ -1085,7 +1085,7 @@ const Lobby = ({ socket }) => {
 
             {/* play music */}
 
-            <audio ref={songRef} />
+            <audio ref={songRef} crossorigin="anonymous" />
           </div>
 
           <div className="main-container">

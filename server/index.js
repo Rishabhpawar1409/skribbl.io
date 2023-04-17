@@ -745,7 +745,13 @@ io.on("connection", (socket) => {
 
       try {
         const res = await fetch(
-          `${YOUTUBE_SONGS_ITEMS_API}?part=snippet&maxResults=1&q=${trimmedSearchInput}&type=video&videoCategoryId=10&key=${YOUTUBE_API_KEY}`
+          `${YOUTUBE_SONGS_ITEMS_API}?part=snippet&maxResults=1&q=${trimmedSearchInput}&type=video&videoCategoryId=10&key=${YOUTUBE_API_KEY}`,
+          {
+            headers: {
+              Referer: "https://skribbl-rishabh.netlify.app",
+              "Referrer-Policy": "no-referrer-when-downgrade",
+            },
+          }
         );
         const data = await res.json();
 
