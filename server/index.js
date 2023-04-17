@@ -748,7 +748,7 @@ io.on("connection", (socket) => {
           `${YOUTUBE_SONGS_ITEMS_API}?part=snippet&maxResults=1&q=${trimmedSearchInput}&type=video&videoCategoryId=10&key=${YOUTUBE_API_KEY}`,
           {
             headers: {
-              Referer: "https://skribbl-rishabh.netlify.app",
+              Referer: "https://skribbl-rishabh.netlify.app/",
               "Referrer-Policy": "no-referrer-when-downgrade",
             },
           }
