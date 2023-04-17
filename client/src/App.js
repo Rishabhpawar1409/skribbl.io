@@ -12,6 +12,11 @@ import { v4 as uuidv4 } from "uuid";
 
 function App() {
   const port = process.env.REACT_APP_BACKEND_URL || "http://localhost:3001";
+  console.log("port:", port);
+  console.log(
+    "process.env.REACT_APP_BACKEND_URL:",
+    process.env.REACT_APP_BACKEND_URL
+  );
 
   const socket = io(port);
 
