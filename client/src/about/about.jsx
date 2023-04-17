@@ -81,7 +81,7 @@ const About = () => {
         </a>
 
         <a
-          href="https://twitter.com/Rishabh83320951"
+          href="https://twitter.com/Rishsome1409"
           target="/"
           className="link"
         >
