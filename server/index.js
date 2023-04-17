@@ -9,7 +9,7 @@ const port = process.env.PORT || 3001;
 const app = express();
 app.use(
   cors({
-    origin: "*",
+    origin: "https://skribbl-rishabh.netlify.app/",
   })
 );
 
@@ -23,7 +23,7 @@ const server = app.listen(port, () => {
 
 const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin: "https://skribbl-rishabh.netlify.app/",
   },
 });
 
