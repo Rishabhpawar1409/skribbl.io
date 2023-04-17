@@ -1,17 +1,32 @@
 import { Server } from "socket.io";
-import { createServer } from "http";
 import youtubedl from "youtube-dl-exec";
 import words from "./data.js";
 import "dotenv/config";
+import express from "express";
+import cors from "cors";
 
-const httpServer = createServer();
-const io = new Server(httpServer, {
+const port = process.env.PORT || 3001;
+const app = express();
+app.use(
+  cors({
+    origin: "*",
+  })
+);
+
+app.get("/", (req, res) => {
+  res.send("Welcome to Rishabh Pawar's sever!");
+});
+
+const server = app.listen(port, () => {
+  console.log(`listening on ${port}`);
+});
+
+const io = new Server(server, {
   cors: {
     origin: "*",
   },
 });
 
-const port = process.env.PORT || 3001;
 const rooms = {};
 const songs = {};
 const songNameArray = [];
@@ -874,8 +889,4 @@ io.on("connection", (socket) => {
       }
     }
   );
-});
-
-httpServer.listen(port, () => {
-  console.log(`listening on ${port}`);
 });
