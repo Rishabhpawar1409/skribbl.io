@@ -17,6 +17,9 @@ Make sure to keep your API key secure and not share it publicly in a code reposi
 ![Screenshot from 2023-04-14 00-00-16](https://user-images.githubusercontent.com/96792194/233838772-ed50b216-dfb2-49ed-9e7f-481ecbec0e09.png)
 ![Screenshot from 2023-04-14 00-01-20](https://user-images.githubusercontent.com/96792194/233838932-dfd02ff1-e513-40c4-88cf-238d71d4891d.png)
 ![Screenshot from 2023-04-14 00-01-53](https://user-images.githubusercontent.com/96792194/233838974-80e19b15-8c12-4c37-bf0b-f76c1b7d7cbc.png)
-![Screenshot from 2023-04-14 00-04-51](https://user-images.githubusercontent.com/96792194/233839238-1a2bffe3-5b3b-40b0-824e-48e0c61bcb1c.png)
+
+![Screenshot from 2023-04-14 00-01-45](https://user-images.githubusercontent.com/96792194/233984259-1cc96ebc-2983-4f9d-a1b3-71b8eb253516.png)
+![Screenshot from 2023-04-14 00-02-24](https://user-images.githubusercontent.com/96792194/233984614-8ac85d69-b322-4cef-b768-85b2f78d0f93.png)
+
 ![Screenshot from 2023-04-14 00-06-40](https://user-images.githubusercontent.com/96792194/233982218-de274059-a49f-4d9c-b7d9-ca389a7ea758.png)
  
